@@ -1,0 +1,3 @@
+# Ignore build files and logs
+x64
+.vs/
