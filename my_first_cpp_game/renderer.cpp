@@ -1,3 +1,14 @@
+global_variable bool running = true;
+
+struct Render_State {
+	int height, width;
+	void* memory;
+
+	BITMAPINFO bitmap_info;
+};
+
+global_variable Render_State render_state;
+
 internal void render_background() {
 	u32* pixel = (u32*)render_state.memory;
 	for (int y = 0; y < render_state.height; y++) {

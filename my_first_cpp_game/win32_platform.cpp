@@ -1,17 +1,5 @@
 #include <windows.h>
 #include "utils.cpp"
-
-global_variable bool running = true;
-
-struct Render_State {
-	int height, width;
-	void* memory;
-
-	BITMAPINFO bitmap_info;
-};
-
-global_variable Render_State render_state;
-
 #include "renderer.cpp"
 #include "platform_common.cpp"
 #include "game.cpp"
@@ -97,17 +85,22 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 					u32 vk_code = (u32)message.wParam;
 					bool is_down = ((message.lParam & (1 << 31)) == 0);
 
-					#define process_button(b, vk)\
-					case vk: {\
-					input.buttons[b].is_down = is_down; \
-					input.buttons[b].changed = true; \
-					} break; \
+#define process_button(b, vk)\
+case vk: {\
+input.buttons[b].changed = is_down != input.buttons[b].is_down; \
+input.buttons[b].is_down = is_down; \
+} break; \
 
 					switch (vk_code) {
 						process_button(BUTTON_UP, VK_UP);
 						process_button(BUTTON_DOWN, VK_DOWN);
 						process_button(BUTTON_LEFT, VK_LEFT);
 						process_button(BUTTON_RIGHT, VK_RIGHT);
+
+						process_button(BUTTON_9, 0x69);
+						process_button(BUTTON_6, 0x66);
+						process_button(BUTTON_Q, 0x51);
+						process_button(BUTTON_A, 0x41);
 
 					}
 
