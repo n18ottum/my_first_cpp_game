@@ -12,6 +12,7 @@ enum {
 	BUTTON_6,
 	BUTTON_Q,
 	BUTTON_A,
+	BUTTON_SPACE,
 	BUTTON_COUNT, //should be the last item
 };
 

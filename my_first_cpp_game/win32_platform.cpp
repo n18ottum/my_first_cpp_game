@@ -1,8 +1,14 @@
 #include <windows.h>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
 #include "utils.cpp"
 #include "renderer.cpp"
 #include "platform_common.cpp"
 #include "game.cpp"
+
+
+
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	LRESULT result = 0;
@@ -41,6 +47,11 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 }
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+	//random number generator seed
+	system("clear");
+	srand(clock());
+	int throwOut = rand();
+
 	// Create window class
 	WNDCLASS window_class = {};
 	window_class.style = CS_HREDRAW | CS_VREDRAW;
@@ -51,7 +62,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	RegisterClass(&window_class);
 
 	// Create window
-	HWND window = CreateWindow(window_class.lpszClassName, L"My First Game!", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720, 0, 0, hInstance, 0);
+	HWND window = CreateWindow(window_class.lpszClassName, L"GAMETIME", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720, 0, 0, hInstance, 0);
 	HDC hdc = GetDC(window);
 
 	Input input = {};
@@ -101,6 +112,8 @@ input.buttons[b].is_down = is_down; \
 						process_button(BUTTON_6, 0x66);
 						process_button(BUTTON_Q, 0x51);
 						process_button(BUTTON_A, 0x41);
+
+						process_button(BUTTON_SPACE, VK_SPACE)
 
 					}
 
